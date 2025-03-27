@@ -13,6 +13,18 @@ const getNotes = async (req: any, res: Response) => {
   }
 };
 
+const getNoteById = async (req: any, res: Response) => {
+  try {
+    const userId: number = req?.userId;
+    const noteId = req?.params?.id;
+
+    const note = await NoteService.getNoteById({ userId, id: noteId });
+    responseData.success(res, note, messageConstants.NOTE_FETCHED);
+  } catch (error: any) {
+    responseData.fail(res, error?.message, error?.statusCode);
+  }
+};
+
 const createNote = async (req: any, res: Response) => {
   try {
     const userId = req?.userId;
@@ -54,4 +66,4 @@ const deleteNote = async (req: any, res: Response) => {
   }
 };
 
-export default { getNotes, createNote, updateNote, deleteNote };
+export default { getNotes, getNoteById, createNote, updateNote, deleteNote };

@@ -10,6 +10,7 @@ export const messageConstants = {
   USER_CREATED: "User created successfully",
 
   NOTES_FETCHED: "Notes fetched successfully",
+  NOTE_FETCHED: "Note fetched successfully",
   NOTE_CREATED: "Note created successfully",
   NOTE_UPDATED: "Note updated successfully",
   NOTE_DELETED: "Note deleted successfully",

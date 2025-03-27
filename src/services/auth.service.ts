@@ -1,11 +1,14 @@
-import passport from "../config/passport";
 import User from "../entities/User";
 import CustomError from "../utils/custom_error";
 import { comparePassword, hashPassword } from "../utils/encrypt_decrypt";
 import { generateJWT } from "../utils/generateJWT";
 
-const googleAuthenticate = async () => {
-  return passport.authenticate("google", { scope: ["profile", "email"] });
+const googleAuthenticate = async (userId: number) => {
+  if (!userId) {
+    throw new Error("User not found");
+  }
+  const token = generateJWT(userId);
+  return token;
 };
 
 const signUp = async (body: any) => {

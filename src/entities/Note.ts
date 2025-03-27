@@ -15,13 +15,13 @@ class Note extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: "varchar", nullable: false })
   title: string;
 
-  @Column()
+  @Column({ type: "text", nullable: true })
   body: string;
 
-  @Column()
+  @Column({ nullable: false })
   userId: number;
 
   @ManyToOne(() => User, { onDelete: "CASCADE" })

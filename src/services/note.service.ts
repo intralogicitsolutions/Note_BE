@@ -12,6 +12,21 @@ const getNotes = async (userId: number) => {
   }
 };
 
+const getNoteById = async (data: any) => {
+  try {
+    const { id, userId } = data;
+
+    const note = await Note.findOne({ where: { id, userId } });
+
+    if (!note) {
+      throw new CustomError("Note not found", 404);
+    }
+    return note;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const createNote = async (data: any) => {
   try {
     const note = await Note.create(data);
@@ -56,4 +71,4 @@ const deleteNote = async (data: any) => {
   }
 };
 
-export default { getNotes, createNote, updateNote, deleteNote };
+export default { getNotes, getNoteById, createNote, updateNote, deleteNote };

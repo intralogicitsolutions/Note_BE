@@ -15,30 +15,30 @@ passport.deserializeUser(async (id: number, done) => {
   }
 });
 
-// passport.use(
-//   new GoogleStrategy(
-//     {
-//       clientID: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//       callbackURL: process.env.GOOGLE_REDIRECT_URI, // Change this
-//     },
-//     async (accessToken: any, refreshToken: any, profile: any, done: any) => {
-//       try {
-//         let user = await User.findOne({ where: { googleId: profile.id } });
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      callbackURL: process.env.GOOGLE_REDIRECT_URI, // Change this
+    },
+    async (accessToken: any, refreshToken: any, profile: any, done: any) => {
+      try {
+        let user = await User.findOne({ where: { googleId: profile.id } });
 
-//         if (!user) {
-//           user = await User.create({
-//             googleId: profile.id,
-//             email: profile.emails?.[0].value,
-//           });
-//         }
+        if (!user) {
+          user = await User.create({
+            googleId: profile.id,
+            email: profile.emails?.[0].value,
+          });
+        }
 
-//         return done(null, user);
-//       } catch (error) {
-//         return done(error, null);
-//       }
-//     }
-//   )
-// );
+        return done(null, user);
+      } catch (error) {
+        return done(error, null);
+      }
+    }
+  )
+);
 
 export default passport;
